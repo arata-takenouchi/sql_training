@@ -7,6 +7,7 @@ SELECT group_name AS グループ, MIN(ranking) AS ランキング最上位, MAX
 FROM countries
 GROUP BY group_name
 
+
 -- 2. Find the average height and weight of goalkeepers
 -- my answer
 SELECT AVG(height), AVG(weight) FROM players WHERE position = 'GK';
@@ -15,3 +16,20 @@ SELECT AVG(height), AVG(weight) FROM players WHERE position = 'GK';
 SELECT AVG(height) AS 平均身長, AVG(weight) AS 平均体重
 FROM players
 WHERE position = 'GK';
+
+
+-- 3. Average height of each country, from tallest to oldest
+-- my answer
+SELECT countries.name as 国名, AVG(players.height) as 平均身長 FROM countries
+INNER JOIN players ON countries.id = players.country_id
+GROUP BY countries.name
+ORDER BY players.height DESC;
+
+-- answer
+SELECT c.name AS 国名, AVG(p.height) AS 平均身長
+FROM countries c
+JOIN players p ON p.country_id = c.id
+GROUP BY c.id, c.name
+ORDER BY AVG(p.height) DESC;
+-- テーブル定義でcountries.nameは一意と保証されていないので、idでグループ化している
+-- その上で、idだけでグループ化するとSELECTでnameが使えないので、idとnameでグループ化する
