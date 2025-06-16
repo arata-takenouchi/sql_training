@@ -33,3 +33,21 @@ GROUP BY c.id, c.name
 ORDER BY AVG(p.height) DESC;
 -- テーブル定義でcountries.nameは一意と保証されていないので、idでグループ化している
 -- その上で、idだけでグループ化するとSELECTでnameが使えないので、idとnameでグループ化する
+
+
+-- 4. Average height of each country, from tallest to oldest(not JOIN)
+-- my answer
+SELECT
+  (
+    SELECT name FROM countries WHERE id = players.country_id
+  ) as 国名,
+  AVG(players.height) as 平均身長
+FROM players
+GROUP BY players.country_id
+ORDER BY players.height DESC;
+
+-- answer
+SELECT (SELECT c.name FROM countries c WHERE p.country_id = c.id) AS 国名, AVG(p.height) AS 平均身長
+FROM players p
+GROUP BY p.country_id
+ORDER BY AVG(p.height) DESC
