@@ -51,3 +51,18 @@ SELECT (SELECT c.name FROM countries c WHERE p.country_id = c.id) AS 国名, AVG
 FROM players p
 GROUP BY p.country_id
 ORDER BY AVG(p.height) DESC
+
+
+-- 5. Kick-off times and names of the competing countries are displayed in order from earliest kick-off time to latest kick-off time.
+-- my answer
+SELECT t1.kickoff, t2.name AS 対戦国1, t3.name AS 対戦国2 FROM pairings t1
+INNER JOIN countries t2 ON t1.my_country_id = t2.id
+INNER JOIN countries t3 ON t1.my_country_id = t3.id
+ORDER BY t1.kickoff ASC;
+
+-- answer
+SELECT kickoff AS キックオフ日時, c1.name AS 国名1, c2.name AS 国名2
+FROM pairings p
+LEFT JOIN countries c1 ON p.my_country_id = c1.id
+LEFT JOIN countries c2 ON p.enemy_country_id = c2.id
+ORDER BY kickoff
