@@ -66,3 +66,20 @@ FROM pairings p
 LEFT JOIN countries c1 ON p.my_country_id = c1.id
 LEFT JOIN countries c2 ON p.enemy_country_id = c2.id
 ORDER BY kickoff
+
+
+-- 5. Kick-off times and names of the competing countries are displayed in order from earliest kick-off time to latest kick-off time.
+-- my answer
+SELECT
+  name AS 名前,
+  position AS ポジション,
+  club AS 所属クラブ,
+  (SELECT COUNT(goal_time) FROM goals WHERE player_id = players.id) AS ゴール数
+FROM players
+ORDER BY ゴール数 DESC;
+
+-- answer
+SELECT p.name AS 名前, p.position AS ポジション, p.club AS 所属クラブ, 
+    (SELECT COUNT(id) FROM goals g WHERE g.player_id = p.id) AS ゴール数
+FROM players p
+ORDER BY ゴール数 DESC;
