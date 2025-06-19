@@ -79,7 +79,28 @@ FROM players
 ORDER BY ゴール数 DESC;
 
 -- answer
-SELECT p.name AS 名前, p.position AS ポジション, p.club AS 所属クラブ, 
+SELECT p.name AS 名前, p.position AS ポジション, p.club AS 所属クラブ,
     (SELECT COUNT(id) FROM goals g WHERE g.player_id = p.id) AS ゴール数
 FROM players p
 ORDER BY ゴール数 DESC;
+
+-- 6. Kick-off times and names of the competing countries are displayed in order from earliest kick-off time to latest kick-off time.(JOIN)
+-- my answer
+SELECT
+  t1.name AS 名前,
+  t1.position AS ポジション,
+  t1.club AS 所属クラブ,
+  SELECT COUNT(t2.id) AS ゴール数
+FROM players t1
+LEFT JOIN goals t2 ON t1.id = t2.player_id
+ORDER BY ゴール数 DESC;
+
+--answer
+SELECT p.name AS 名前, p.position AS ポジション, p.club AS 所属クラブ,
+    COUNT(g.id) AS ゴール数
+FROM players p
+LEFT JOIN goals g ON g.player_id = p.id
+GROUP BY p.id, p.name, p.position, p.club
+ORDER BY ゴール数 DESC
+-- 選手ごとの得点を表示するためにはgroup byする必要がある
+-- groupにする場合は、select句のカラムは全て書く（構文上のルール）
