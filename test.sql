@@ -123,3 +123,24 @@ FROM players p
 LEFT JOIN goals g ON g.player_id = p.id
 GROUP BY p.position
 ORDER BY ゴール数 DESC
+
+
+-- 8. Shows the age of each player at the time of the World Cup (2014-06-13)
+-- my answer
+SELECT
+  birth,
+  IIF(
+    DATEADD(yyyy, DATEDIFF(yyyy, birth, '2014-06-13'), birth) <= '2014-06-13',
+    DATEDIFF(yyyy, birth, '2014-06-13'),
+    DATEDIFF(yyyy,birth, '2014-06-13') - 1
+  ) AS age,
+  name,
+  position
+FROM players
+ORDER BY birth;
+
+--answer
+SELECT birth, TIMESTAMPDIFF(YEAR, birth, '2014-06-13') AS age, name, position
+FROM players
+ORDER BY age DESC;
+-- my answerのクエリの方が正確な気はする
