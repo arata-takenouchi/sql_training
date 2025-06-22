@@ -68,7 +68,7 @@ LEFT JOIN countries c2 ON p.enemy_country_id = c2.id
 ORDER BY kickoff
 
 
--- 5. Kick-off times and names of the competing countries are displayed in order from earliest kick-off time to latest kick-off time.
+-- 6. Kick-off times and names of the competing countries are displayed in order from earliest kick-off time to latest kick-off time.
 -- my answer
 SELECT
   name AS 名前,
@@ -85,7 +85,7 @@ FROM players p
 ORDER BY ゴール数 DESC;
 
 
--- 6. Kick-off times and names of the competing countries are displayed in order from earliest kick-off time to latest kick-off time.(JOIN)
+-- 7. Kick-off times and names of the competing countries are displayed in order from earliest kick-off time to latest kick-off time.(JOIN)
 -- my answer
 SELECT
   t1.name AS 名前,
@@ -107,7 +107,7 @@ ORDER BY ゴール数 DESC
 -- groupにする場合は、select句のカラムは全て書く（構文上のルール）
 
 
--- 7. Shows total points scored by each position
+-- 8. Shows total points scored by each position
 -- my answer
 SELECT
   t1.position AS ポジション,
@@ -125,7 +125,7 @@ GROUP BY p.position
 ORDER BY ゴール数 DESC
 
 
--- 8. Shows the age of each player at the time of the World Cup (2014-06-13)
+-- 9. Shows the age of each player at the time of the World Cup (2014-06-13)
 -- my answer
 SELECT
   birth,
@@ -144,3 +144,16 @@ SELECT birth, TIMESTAMPDIFF(YEAR, birth, '2014-06-13') AS age, name, position
 FROM players
 ORDER BY age DESC;
 -- my answerのクエリの方が正確な気はする
+
+
+-- 10. Shows the age of each player at the time of the World Cup (2014-06-13)
+-- my answer
+SELECT COUNT(id)
+FROM goals
+WHERE player_id IS NULL
+GROUP BY id;
+
+--answer
+SELECT COUNT(g.goal_time)
+FROM goals  g
+WHERE g.player_id IS NULL;
