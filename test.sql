@@ -157,3 +157,17 @@ GROUP BY id;
 SELECT COUNT(g.goal_time)
 FROM goals  g
 WHERE g.player_id IS NULL;
+
+
+-- 11. Shows the age of each player at the time of the World Cup (2014-06-13)
+-- my answer
+SELECT 1group_name, COUNT(t1.id)
+FROM goals t1
+LEFT JOIN countries t2 ON 
+WHERE t1.goal_time BETWEEN '2014-06-13' AND '2014-06-27'
+GROUP BY id;
+
+--answer
+SELECT COUNT(g.goal_time)
+FROM goals  g
+WHERE g.player_id IS NULL;
