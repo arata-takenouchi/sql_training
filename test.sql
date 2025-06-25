@@ -175,3 +175,18 @@ LEFT JOIN pairings p ON p.id = g.pairing_id
 LEFT JOIN countries c ON p.my_country_id = c.id
 WHERE p.kickoff BETWEEN '2014-06-13 0:00:00' AND '2014-06-27 23:59:59'
 GROUP BY c.group_name;
+
+
+-- 12. Showing the goal times of Colombia's goals in the Japan vs Colombia match (pairings.id = 103)
+-- my answer
+SELECT g.goal_time
+FROM goals g
+LEFT JOIN pairings p ON g.pairing_id = p.id
+LEFT JOIN players pl ON g.player_id = pl.id
+LEFT JOIN countries c ON pl.country_id = c.id
+WHERE g.pairing_id = 103 AND c.name = 'コロンビア'
+
+--answer
+SELECT goal_time
+FROM goals
+WHERE pairing_id = 103
