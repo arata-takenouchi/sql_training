@@ -190,3 +190,19 @@ WHERE g.pairing_id = 103 AND c.name = 'コロンビア'
 SELECT goal_time
 FROM goals
 WHERE pairing_id = 103
+
+
+-- 13. Showing the result of Japan vs Colombia match. Japan's goals are pairings.id = 39, Colombia's goals are pairings.id = 103.
+-- my answer
+SELECT p.name, COUNT(g.goal_time)
+FROM pairings p
+LEFT JOIN goals g ON p.id = g.pairing_id
+WHERE p.enemy_country_id = 103 AND p.my_country_id = 39
+
+--answer
+SELECT c.name, COUNT(g.goal_time)
+FROM goals g
+LEFT JOIN pairings p ON p.id = g.pairing_id
+LEFT JOIN countries c ON p.my_country_id = c.id
+WHERE p.id = 103 OR p.id = 39
+GROUP BY c.name
