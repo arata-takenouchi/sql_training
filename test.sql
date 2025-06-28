@@ -206,3 +206,27 @@ LEFT JOIN pairings p ON p.id = g.pairing_id
 LEFT JOIN countries c ON p.my_country_id = c.id
 WHERE p.id = 103 OR p.id = 39
 GROUP BY c.name
+
+
+-- 14. Show the number of goals scored in each match of Group C.
+-- my answer
+SELECT p.kickoff, myc.name as my_country, ec.name as enemy_country, myc.ranking as my_ranking, ec.ranking as enemy_ranking, COUNT(g.goal_time) as my_goals
+FROM pairings p
+LEFT JOIN countries as myc ON p.my_country_id = myc.id
+LEFT JOIN countries as ec ON p.enemy_country_id = ec.id
+LEFT JOIN goals g ON p.id = g.pairing_id
+GROUP BY p.kickoff
+
+--answer
+SELECT p1.kickoff, c1.name AS my_country, c2.name AS enemy_country,
+    c1.ranking AS my_ranking, c2.ranking AS enemy_ranking,
+    COUNT(g1.id) AS my_goals
+FROM pairings p1
+LEFT JOIN countries c1 ON c1.id = p1.my_country_id
+LEFT JOIN countries c2 ON c2.id = p1.enemy_country_id
+LEFT JOIN goals g1 ON p1.id = g1.pairing_id
+WHERE c1.group_name = 'C' AND c2.group_name = 'C'
+GROUP BY p1.kickoff, c1.name, c2.name, c1.ranking, c2.ranking
+ORDER BY p1.kickoff, c1.ranking
+-- GROUP BY句にSELECT句で指定したカラムを全て列挙する
+-- 決勝リーグの結果が含まれないように自国と対戦国がどちらもCグループという条件を付ける
