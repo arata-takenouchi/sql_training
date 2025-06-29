@@ -230,3 +230,36 @@ GROUP BY p1.kickoff, c1.name, c2.name, c1.ranking, c2.ranking
 ORDER BY p1.kickoff, c1.ranking
 -- GROUP BY句にSELECT句で指定したカラムを全て列挙する
 -- 決勝リーグの結果が含まれないように自国と対戦国がどちらもCグループという条件を付ける
+
+
+-- 15. Show the number of goals scored in each match of Group C.
+-- my answer
+SELECT
+  p.kickoff,
+  (
+    SELECT name FROM countries WHERE id = p.my_country_id AND group_name = 'C'
+  ) as my_country,
+  (
+    SELECT name FROM countries WHERE id = p.enemy_country_id AND group_name = 'C'
+  ) as enemy_country,
+  (
+    SELECT ranking FROM countries WHERE id = p.my_country_id AND group_name = 'C'
+  ) as my_ranking,
+  (
+    SELECT ranking FROM countries WHERE id = p.enemy_country_id AND group_name = 'C'
+  ) as enemy_ranking,
+  (
+    SELECT COUNT(id) FROM goals WHERE pairing_id = p.id
+  ) as my_goals,
+FROM pairings p
+ORDER BY p.kickoff, my_ranking
+
+--answer
+SELECT p1.kickoff, c1.name AS my_country, c2.name AS enemy_country,
+    c1.ranking AS my_ranking, c2.ranking AS enemy_ranking,
+    (SELECT COUNT(g1.id) FROM goals g1 WHERE p1.id = g1.pairing_id) AS my_goals
+FROM pairings p1
+LEFT JOIN countries c1 ON c1.id = p1.my_country_id
+LEFT JOIN countries c2 ON c2.id = p1.enemy_country_id
+WHERE c1.group_name = 'C' AND c2.group_name = 'C'
+ORDER BY p1.kickoff, c1.ranking
