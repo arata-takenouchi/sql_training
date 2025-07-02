@@ -337,3 +337,15 @@ WHERE c1.group_name = 'C' AND c2.group_name = 'C'
 ORDER BY p1.kickoff, c1.ranking
 -- サブクエリの結果のカラムを使った計算はできない（構文エラー）
 -- なので、サブクエリを2回書くことになる
+
+
+-- 18. Show the number of goals scored in each match of Group C.
+-- my answer
+SELECT kickoff, (DATE_SUB(kickoff, INTERVAL 12 HOUR)) AS kickoff_jp
+FROM pairings
+WHERE my_country_id = 1 AND enemy_country_id = 4
+
+--answer
+SELECT p.kickoff, DATE_SUB(p.kickoff, INTERVAL '12' HOUR) AS kickoff_jp
+FROM pairings p
+WHERE p.my_country_id = 1 AND p.enemy_country_id = 4;
