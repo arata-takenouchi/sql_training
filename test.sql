@@ -349,3 +349,21 @@ WHERE my_country_id = 1 AND enemy_country_id = 4
 SELECT p.kickoff, DATE_SUB(p.kickoff, INTERVAL '12' HOUR) AS kickoff_jp
 FROM pairings p
 WHERE p.my_country_id = 1 AND p.enemy_country_id = 4;
+
+
+-- 19. Show number of players by age.
+-- my answer
+SELECT
+  IIF(
+    DATEADD(yyyy, DATEDIFF(yyyy, birth, '2014-06-13'), birth) <= '2014-06-13',
+    DATEDIFF(yyyy, birth, '2014-06-13'),
+    DATEDIFF(yyyy,birth, '2014-06-13') - 1
+  ) AS age,
+  COUNT(id) AS player_count
+FROM players
+GROUP BY age
+
+--answer
+SELECT TIMESTAMPDIFF(YEAR, birth, '2014-06-13') AS age, COUNT(id) AS player_count
+FROM players
+GROUP BY age
