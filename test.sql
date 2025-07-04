@@ -367,3 +367,22 @@ GROUP BY age
 SELECT TIMESTAMPDIFF(YEAR, birth, '2014-06-13') AS age, COUNT(id) AS player_count
 FROM players
 GROUP BY age
+
+
+-- 20. Show number of players by age.
+-- my answer
+SELECT
+  IIF(
+    DATEADD(yyyy, DATEDIFF(yyyy, birth, '2014-06-13'), birth) <= '2014-06-13',
+    DATEDIFF(yyyy, birth, '2014-06-13'),
+    DATEDIFF(yyyy,birth, '2014-06-13') - 1
+  ) AS age,
+  COUNT(id) AS player_count
+FROM players
+WHERE age = 10 OR age = 20 OR age = 30 OR age = 40 OR age = 50 OR age = 60
+GROUP BY age
+
+--answer
+SELECT TRUNCATE(TIMESTAMPDIFF(YEAR, birth, '2014-06-13'), -1) AS age, COUNT(id) AS player_count
+FROM players
+GROUP BY age
