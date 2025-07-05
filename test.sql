@@ -386,3 +386,15 @@ GROUP BY age
 SELECT TRUNCATE(TIMESTAMPDIFF(YEAR, birth, '2014-06-13'), -1) AS age, COUNT(id) AS player_count
 FROM players
 GROUP BY age
+
+
+-- 21. Show number of players by age.
+-- my answer
+SELECT age DIV 5 as age, COUNT(id) AS player_count
+FROM players
+GROUP BY age
+
+--answer
+SELECT FLOOR(TIMESTAMPDIFF(YEAR, birth, '2014-06-13') / 5) * 5   AS age, COUNT(id) AS player_count
+FROM players
+GROUP BY age
