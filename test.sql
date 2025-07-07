@@ -416,3 +416,17 @@ ORDER BY age, position
 SELECT FLOOR(TIMESTAMPDIFF(YEAR, birth, '2014-06-13') / 5) * 5   AS age, COUNT(id) AS player_count
 FROM players
 GROUP BY age
+
+
+-- 23
+-- my answer
+SELECT
+  TOP 3 (name, height, weight)
+FROM players
+ORDER BY height DESC
+
+--answer
+SELECT name, height, weight
+FROM players
+ORDER BY height DESC
+LIMIT 5
