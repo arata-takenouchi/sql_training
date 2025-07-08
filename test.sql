@@ -430,3 +430,19 @@ SELECT name, height, weight
 FROM players
 ORDER BY height DESC
 LIMIT 5
+
+
+-- 24
+-- my answer
+SELECT name, height, weight
+FROM players
+ORDER BY height DESC
+LIMIT 15
+OFFSET 5
+
+--answer
+SELECT name, height, weight
+FROM players
+ORDER BY height DESC
+LIMIT 5, 15
+-- my answerでも同じ結果になるので、ここは好みの問題（MYSQL以外の場合はLIMIT OFFSETの方がいいかも）
