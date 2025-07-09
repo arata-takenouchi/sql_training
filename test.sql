@@ -446,3 +446,14 @@ FROM players
 ORDER BY height DESC
 LIMIT 5, 15
 -- my answerでも同じ結果になるので、ここは好みの問題（MYSQL以外の場合はLIMIT OFFSETの方がいいかも）
+
+
+-- 25
+-- my answer
+SELECT uniform_num, name, club
+FROM players
+
+--answer
+SELECT uniform_num, name, club
+FROM players
+-- ただの射影
