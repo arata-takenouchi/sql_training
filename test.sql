@@ -470,3 +470,16 @@ SELECT *
 FROM countries
 WHERE group_name = 'C'
 -- ただの選択
+
+
+-- 27
+-- my answer
+SELECT *
+FROM countries
+WHERE group_name != 'C'
+
+--answer
+SELECT *
+FROM countries
+WHERE group_name <> 'C'
+-- ただの選択
