@@ -457,3 +457,16 @@ FROM players
 SELECT uniform_num, name, club
 FROM players
 -- ただの射影
+
+
+-- 26
+-- my answer
+SELECT id, name, ranking, group_name
+FROM countries
+WHERE group_name = 'C'
+
+--answer
+SELECT * 
+FROM countries
+WHERE group_name = 'C'
+-- ただの選択
