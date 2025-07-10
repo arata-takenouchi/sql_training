@@ -483,3 +483,16 @@ SELECT *
 FROM countries
 WHERE group_name <> 'C'
 -- ただの選択
+
+
+-- 28
+-- my answer
+SELECT *
+FROM players
+WHERE TIMESTAMPDIFF(YEAR, birth, '2016-01-13') >= 40
+
+--answer
+SELECT *
+FROM players
+WHERE birth <= '1976-1-13'
+-- ただの選択
