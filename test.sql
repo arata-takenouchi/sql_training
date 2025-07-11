@@ -496,3 +496,16 @@ SELECT *
 FROM players
 WHERE birth <= '1976-1-13'
 -- ただの選択
+
+
+-- 29
+-- my answer
+SELECT *
+FROM players
+WHERE height < 170
+
+--answer
+SELECT *
+FROM players
+WHERE height < 170
+
